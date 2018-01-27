@@ -61,7 +61,7 @@ export default class TripCard extends React.Component {
         </View>
         
         <Button
-          containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:6, backgroundColor: '#3498db', marginTop: 20, marginLeft: 20, marginRight: 20}}
+          containerStyle={{padding:10, height:48, overflow:'hidden', borderRadius:6, backgroundColor: '#3498db', marginTop: 20, marginLeft: 20, marginRight: 20}}
           disabledContainerStyle={{backgroundColor: 'grey'}}
           style={{fontSize: 20, color: 'white' }}>
           See trip

@@ -5,15 +5,15 @@ import Button from 'react-native-button'
 import { TripCard, PermissionCard, SectionHeader, ScheduleCard, FeedbackCard, CommunityCard, BasicCard } from './components'
 import { TabNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { ActiveScreen } from './screens'
+import { ActiveScreen, FutureScreen } from './screens'
 
 const Tabs = TabNavigator({
-  TripActive: {
+  Active: {
     screen: ActiveScreen
   },
   
-  Test: {
-    screen: ActiveScreen,
+  Future: {
+    screen: FutureScreen,
   },
 })
 

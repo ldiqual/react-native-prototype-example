@@ -60,8 +60,10 @@ export default class FeedbackCard extends React.Component {
           
           </View>
           
-          <EntypoIcon name="chevron-thin-right" size={50} style={{ marginTop: 10 }} color='#bdc3c7'>
-          </EntypoIcon>
+          <Image
+            style={{ width: 30, height: 60, borderRadius: 35, marginTop: 5, opacity: 0.5, tintColor: '#bdc3c7', resizeMode: 'stretch' }}
+            source={{ uri: 'https://cdn2.iconfinder.com/data/icons/web-and-mobile-ui-volume-27/48/1319-512.png' }}
+          />
         </View>
         
       </View>

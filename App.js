@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, Text, View, NavigatorIOS, TouchableHighlight, ScrollView, Image } from 'react-native'
 import Button from 'react-native-button'
-import { TripCard, PermissionCard, SectionHeader, ScheduleCard, FeedbackCard, CommunityCard } from './components'
+import { TripCard, PermissionCard, SectionHeader, ScheduleCard, FeedbackCard, CommunityCard, BasicCard } from './components'
 
 export default class NavigatorIOSApp extends React.Component {
   render() {
@@ -43,12 +43,14 @@ class MyScene extends React.Component {
           <TripCard />
           <PermissionCard />
           
-          <SectionHeader title="Don't forget..."/>
+          <SectionHeader title="Don't forget..." />
           <ScheduleCard />
           <FeedbackCard />
           
-          <SectionHeader title="And also..."/>
+          <SectionHeader title="And also..." />
           <CommunityCard />
+          <BasicCard title="Add your company" iconName="briefcase" />
+          <BasicCard title="Share Scoop" iconName="share" />
           
         </ScrollView>
         

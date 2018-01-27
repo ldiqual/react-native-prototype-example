@@ -14,7 +14,7 @@ export default class PermissionCard extends React.Component {
       <Text style={{
         marginTop: 50,
         marginLeft: 20,
-        fontSize: 15
+        fontSize: 18
       }}>
       { this.props.title }
       </Text>

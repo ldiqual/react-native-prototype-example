@@ -18,7 +18,7 @@ export default class TripCard extends React.Component {
         paddingTop: 30,
         paddingBottom: 30,
       }}>
-        <Text style={{ marginLeft: 30, marginRight: 30, fontSize: 30, fontWeight: 'bold' }}>Your trip</Text>
+        <Text style={{ marginLeft: 20, marginRight: 20, fontSize: 30, fontWeight: 'bold' }}>Your trip</Text>
         
         <Image
           style={{ height: 200, marginTop: 20 }}

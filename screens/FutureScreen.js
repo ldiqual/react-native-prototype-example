@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 export default class ActiveScreen extends React.Component {
   
   static navigationOptions = {
-    tabBarLabel: 'Eg: Done',
+    tabBarLabel: 'Done',
     tabBarIcon: ({ tintColor }) => (
       <Icon name="history" size={20} style={{ color: tintColor }} />
     ),

@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 export default class AfterSignupScreen extends React.Component {
   
   static navigationOptions = {
-    tabBarLabel: 'Eg: Signed-up',
+    tabBarLabel: 'Signed-up',
     tabBarIcon: ({ tintColor }) => (
       <Icon name="user-plus" size={20} style={{ color: tintColor }} />
     ),

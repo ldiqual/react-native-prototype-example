@@ -3,32 +3,19 @@ import PropTypes from 'prop-types'
 import { StyleSheet, Text, View, NavigatorIOS, TouchableHighlight, ScrollView, Image } from 'react-native'
 import Button from 'react-native-button'
 import { TripCard, PermissionCard, SectionHeader, ScheduleCard, FeedbackCard, CommunityCard, BasicCard } from './components'
+import { TabNavigator } from 'react-navigation'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
-export default class NavigatorIOSApp extends React.Component {
-  render() {
-    return (
-      <NavigatorIOS
-        initialRoute={{
-          component: MyScene,
-          title: 'Welcome Loïs',
-        }}
-        style={{flex: 1}}
-      />
-    );
-  }
-}
 
-class MyScene extends React.Component {
-  static propTypes = {
-    navigator: PropTypes.object.isRequired,
-  }
-
-  _onForward = () => {
-    this.props.navigator.push({
-      title: 'Scene ' + nextIndex,
-    });
-  }
-
+class TripActive extends React.Component {
+  
+  static navigationOptions = {
+    tabBarLabel: 'Active trip',
+    tabBarIcon: ({ tintColor }) => (
+      <Icon name="car" size={20} style={{ color: tintColor }} />
+    ),
+  };
+  
   render() {
     return (
       <View style={{
@@ -38,7 +25,7 @@ class MyScene extends React.Component {
         justifyContent: 'center',
       }}>
       
-        <ScrollView>
+        <ScrollView style={{ paddingTop: 50 }}>
         
           <TripCard />
           <PermissionCard />
@@ -52,9 +39,29 @@ class MyScene extends React.Component {
           <BasicCard title="Add your company" iconName="briefcase" />
           <BasicCard title="Share Scoop" iconName="share" />
           
+          <View style={{ height: 70 }}></View>
+          
         </ScrollView>
         
       </View>
     )
+  }
+}
+
+const Tabs = TabNavigator({
+  TripActive: {
+    screen: TripActive
+  },
+  
+  Test: {
+    screen: TripActive,
+  },
+})
+
+export default class NavigatorIOSApp extends React.Component {
+  render() {
+    return (
+      <Tabs />
+    );
   }
 }

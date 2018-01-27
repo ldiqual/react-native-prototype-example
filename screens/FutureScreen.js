@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 export default class ActiveScreen extends React.Component {
   
   static navigationOptions = {
-    tabBarLabel: 'Trip done',
+    tabBarLabel: 'Eg: Done',
     tabBarIcon: ({ tintColor }) => (
       <Icon name="history" size={20} style={{ color: tintColor }} />
     ),
@@ -30,6 +30,7 @@ export default class ActiveScreen extends React.Component {
           
           <SectionHeader title="Don't forget..." />
           <PendingCard />
+          <ScheduleCard />
           
           
           <SectionHeader title="And also..." />

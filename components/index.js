@@ -6,5 +6,6 @@ import FeedbackCard from './FeedbackCard'
 import CommunityCard from './CommunityCard'
 import BasicCard from './BasicCard'
 import PendingCard from './PendingCard'
+import WelcomeCard from './WelcomeCard'
 
-export { TripCard, PermissionCard, SectionHeader, ScheduleCard, FeedbackCard, CommunityCard, BasicCard, PendingCard }
+export { TripCard, PermissionCard, SectionHeader, ScheduleCard, FeedbackCard, CommunityCard, BasicCard, PendingCard, WelcomeCard }

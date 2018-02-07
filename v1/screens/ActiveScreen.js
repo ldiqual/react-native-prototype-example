@@ -15,7 +15,7 @@ export default class ActiveScreen extends React.Component {
   static navigationOptions = {
     tabBarLabel: 'Active',
     tabBarIcon: ({ tintColor }) => (
-      <Icon name="car" size={20} style={{ color: tintColor }} />
+      <Image source={require('../assets/icTripWhiteOn.png')} style={{ tintColor: tintColor }} />
     ),
   };
   

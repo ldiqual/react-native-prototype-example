@@ -6,11 +6,20 @@ import { TabNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import ActiveScreen from './screens/ActiveScreen'
 import { Font } from 'expo'
+import Colors from './lib/colors'
 
 const Tabs = TabNavigator({
   Active: {
     screen: ActiveScreen
   },
+}, {
+  tabBarOptions: {
+    activeTintColor: Colors.green,
+    inactiveTintColor: Colors.grey4,
+    style: {
+      // backgroundColor: 
+    }
+  }
 })
 
 export default class App extends React.Component {

@@ -17,7 +17,7 @@ const Tabs = TabNavigator({
     activeTintColor: Colors.green,
     inactiveTintColor: Colors.grey4,
     style: {
-      // backgroundColor: 
+      backgroundColor: Colors.white
     }
   }
 })

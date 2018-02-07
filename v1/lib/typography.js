@@ -16,5 +16,10 @@ export default StyleSheet.create({
     fontFamily: 'gotham-regular',
     fontSize: 16,
     color: Colors.black,
+  },
+  helper: {
+    fontFamily: 'gotham-regular',
+    fontSize: 10,
+    color: Colors.black,
   }
 })

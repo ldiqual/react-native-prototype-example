@@ -4,18 +4,33 @@ import { StyleSheet, Text, View, NavigatorIOS, TouchableHighlight, ScrollView, I
 import Button from 'react-native-button'
 import { TabNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
-// import { ActiveScreen, FutureScreen, AfterSignupScreen, NotAvailableScreen } from './screens'
+import ActiveScreen from './screens/ActiveScreen'
+import { Font } from 'expo'
 
 const Tabs = TabNavigator({
-  // Active: {
-  //   screen: ActiveScreen
-  // },
+  Active: {
+    screen: ActiveScreen
+  },
 })
 
 export default class App extends React.Component {
+  
+  constructor(...args) {
+    super(...args)
+    this.state = {}
+  }
+  
+  async componentDidMount() {
+    await Font.loadAsync({
+      'gotham-regular': require('./assets/GothamSSm-Book.otf'),
+      'gotham-medium': require('./assets/GothamSSm-Medium.otf'),
+    })
+    this.setState({ isFontLoaded: true })
+  }
+  
   render() {
     return (
-      <Tabs />
-    );
+      this.state.isFontLoaded ? <Tabs /> : <View />
+    )
   }
 }

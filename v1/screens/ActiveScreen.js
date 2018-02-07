@@ -5,6 +5,7 @@ import Button from 'react-native-button'
 import { TabNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import FutureTripCard from '../components/FutureTripCard'
+import SectionHeader from '../components/SectionHeader'
 import Colors from '../lib/colors'
 
 export default class ActiveScreen extends React.Component {
@@ -27,6 +28,7 @@ export default class ActiveScreen extends React.Component {
       
         <ScrollView style={{ paddingTop: 50 }}>
           
+          <SectionHeader title="Upcoming Trips" />
           <FutureTripCard date="Wednesday 8/19" title="Morning ride" />
           <FutureTripCard date="Wednesday 8/19" title="Evening ride" />
           <FutureTripCard date="Thursday 8/20" title="Morning ride" />

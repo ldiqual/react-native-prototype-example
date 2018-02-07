@@ -4,12 +4,14 @@ import { StyleSheet, Text, View, NavigatorIOS, TouchableHighlight, ScrollView, I
 import Button from 'react-native-button'
 import { TabNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
+
 import FutureTripCard from '../components/FutureTripCard'
 import SectionHeader from '../components/SectionHeader'
 import ScheduleCard from '../components/ScheduleCard'
 import SeeMoreCard from '../components/SeeMoreCard'
 import BalanceView from '../components/BalanceView'
 import ScheduleView from '../components/ScheduleView'
+import Drawer from '../components/Drawer'
 import Colors from '../lib/colors'
 import Dimensions from '../lib/dimensions'
 
@@ -51,6 +53,8 @@ export default class ActiveScreen extends React.Component {
           <SeeMoreCard />
           
         </ScrollView>
+        
+        <Drawer />
         
       </View>
     )

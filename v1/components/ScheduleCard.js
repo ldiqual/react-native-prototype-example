@@ -7,12 +7,7 @@ import Colors from '../lib/colors'
 import Typography from '../lib/typography'
 import Dimensions from '../lib/dimensions'
 
-export default class FutureTripCard extends React.Component {
-  
-  static propTypes = {
-    date: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired
-  }
+export default class ScheduleCard extends React.Component {
   
   render() {
     return (        
@@ -30,23 +25,15 @@ export default class FutureTripCard extends React.Component {
         shadowOffset: {width: 0, height: 4},
         shadowRadius: 8
       }}>    
-      
-        <View style={{
-          flex: 1,
-          flexDirection: 'column',
-        }}>   
-          <Text style={Typography.body}>
-            { this.props.title }
-          </Text>
-          <Text style={Typography.subhead}>
-            { this.props.title }
-          </Text>
-        </View>
         
         <Image
-          style={{ marginLeft: 'auto', width: 24, height: 24, resizeMode: 'contain' }}
+          style={{ width: 24, height: 24, resizeMode: 'contain' }}
           source={require('../assets/icNextDarkOff24.png')}
         />
+        
+        <Text style={[Typography.subhead, { marginLeft: Dimensions.mediumMargin }]}>
+          Schedule carpool
+        </Text>
                     
       </View>
     )

@@ -4,12 +4,18 @@ import { StyleSheet, Text, View, NavigatorIOS, TouchableHighlight, ScrollView, I
 import Button from 'react-native-button'
 import { TabNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import AppV1 from './v1/App'
+// import { ActiveScreen, FutureScreen, AfterSignupScreen, NotAvailableScreen } from './screens'
 
-export default class NavigatorIOSApp extends React.Component {
+const Tabs = TabNavigator({
+  // Active: {
+  //   screen: ActiveScreen
+  // },
+})
+
+export default class App extends React.Component {
   render() {
     return (
-      <AppV1 />
+      <Tabs />
     );
   }
 }

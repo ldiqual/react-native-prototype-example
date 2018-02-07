@@ -29,7 +29,7 @@ export default class SeeMoreCard extends React.Component {
         </Text>
         
         <Image
-          style={{ width: 24, height: 24, resizeMode: 'contain', marginLeft: Dimensions.mediumMargin }}
+          style={{ width: 9, height: 16, resizeMode: 'contain', marginLeft: Dimensions.mediumMargin }}
           source={require('../assets/icNextDarkOff24.png')}
         />        
                     

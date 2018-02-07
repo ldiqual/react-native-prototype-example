@@ -27,8 +27,8 @@ export default class ScheduleCard extends React.Component {
       }}>    
         
         <Image
-          style={{ width: 24, height: 24, resizeMode: 'contain' }}
-          source={require('../assets/icNextDarkOff24.png')}
+          style={{ width: 40, height: 40, resizeMode: 'contain' }}
+          source={require('../assets/schedule.png')}
         />
         
         <Text style={[Typography.subhead, { marginLeft: Dimensions.mediumMargin }]}>

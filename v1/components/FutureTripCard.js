@@ -44,7 +44,7 @@ export default class FutureTripCard extends React.Component {
         </View>
         
         <Image
-          style={{ marginLeft: 'auto', width: 24, height: 24, resizeMode: 'contain' }}
+          style={{ marginLeft: 'auto', width: 6, height: 18, resizeMode: 'contain' }}
           source={require('../assets/icNextDarkOff24.png')}
         />
                     

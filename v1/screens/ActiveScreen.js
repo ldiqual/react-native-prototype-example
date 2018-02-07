@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import FutureTripCard from '../components/FutureTripCard'
 import SectionHeader from '../components/SectionHeader'
 import ScheduleCard from '../components/ScheduleCard'
+import SeeMoreCard from '../components/SeeMoreCard'
 import Colors from '../lib/colors'
 
 export default class ActiveScreen extends React.Component {
@@ -34,6 +35,7 @@ export default class ActiveScreen extends React.Component {
           <FutureTripCard date="Wednesday 8/19" title="Evening ride" />
           <FutureTripCard date="Thursday 8/20" title="Morning ride" />
           <ScheduleCard />
+          <SeeMoreCard />
           
         </ScrollView>
         

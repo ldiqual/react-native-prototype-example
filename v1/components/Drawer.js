@@ -110,30 +110,9 @@ export default class Drawer extends Component {
     this.state = {
       touched: 'FALSE',
       position: new Animated.Value(initialDrawerPosition),
-      initialPosition: initialDrawerPosition
+      initialPosition: initialDrawerPosition,
+      percent: new Animated.Value(0),
     }
-    
-    this.initStyleValues()
-  }
-  
-  setStylePlainValues(params) {
-    const self = this
-    _.forEach(params, (style, key) => {
-      _.forEach(style, (styleValue, styleKey) => {
-        self.state[key][styleKey].setValue(styleValue)
-      })
-    })
-  }
-  
-  initStyleValues() {
-    const self = this
-    const plainValues = this.getStylePlainValues(0)
-    _.forEach(plainValues, (style, key) => {
-      _.forEach(style, (styleValue, styleKey) => {
-        self.state[key] = self.state[key] || {}
-        self.state[key][styleKey] = new Animated.Value(styleValue)
-      })
-    })
   }
 
   onUpdatePosition (position) {
@@ -141,6 +120,7 @@ export default class Drawer extends Component {
     this._previousTop = position;
     
     const percent = 1 - (position - MIN_Y_OFFSET) / (this.state.initialPosition - MIN_Y_OFFSET)
+    this.state.percent.setValue(percent)
     const maxScale = 0.9
     
     this.props.onBackgroundStyleNeedsChange({
@@ -158,28 +138,6 @@ export default class Drawer extends Component {
     this.props.onTabBarStyleNeedsChange({
       marginBottom: -TAB_BAR_HEIGHT * percent
     })
-    
-    const plainValues = this.getStylePlainValues(percent)
-    this.setStylePlainValues(plainValues)
-  }
-  
-  getStylePlainValues(percent) {
-    
-    const imageSize = 50 + 100 * percent
-    const finalImageX = (SCREEN_WIDTH - 2 * Dimensions.mediumMargin) / 2 - imageSize / 2
-    
-    return {
-      headerStyle: {
-        backgroundColor: percent,
-      },
-      imageStyle: {
-        left: 0 + finalImageX * percent,
-        top: 0 + 30 * percent,
-        width: imageSize,
-        height: imageSize,
-        borderRadius: imageSize / 2,
-      }
-    }
   }
 
   componentWillMount () {
@@ -224,6 +182,19 @@ export default class Drawer extends Component {
   }
 
   render() {
+    
+    const percent = this.state.percent
+    const imageSize = 50
+    const initialImageSize = 50
+    const finalImageSize = 150
+    const finalImageX = (SCREEN_WIDTH - 2 * Dimensions.mediumMargin) / 2 - finalImageSize / 2
+    
+    const interpolate = outputRange => {
+      return percent.interpolate({
+        inputRange: [0, 1],
+        outputRange: outputRange
+      })
+    }
 
     return (
       <Animated.View
@@ -244,11 +215,7 @@ export default class Drawer extends Component {
           onPressOut={() => { this.setState({ touched: 'FALSE' }); }}>
           
           <Animated.View style={{
-            ...this.state.headerStyle,
-            backgroundColor: this.state.headerStyle.backgroundColor.interpolate({
-              inputRange: [0, 1],
-              outputRange: [Colors.green, Colors.white]
-            }),
+            backgroundColor: interpolate([Colors.green, Colors.white]),
             flexDirection: 'column',
             alignItems: 'stretch',
             height: 88,
@@ -257,13 +224,22 @@ export default class Drawer extends Component {
           }}>
           
             <View style={{ alignItems: 'center' }}>
-              <View style={{ backgroundColor: Colors.white, width: 20, height: 1, marginTop: 10 }}/>
+              <Animated.View style={{
+                backgroundColor: interpolate([Colors.white, Colors.grey5]),
+                width: 20,
+                height: 1,
+                marginTop: 10
+              }}/>
             </View>
             
             <View style={{ flexDirection: 'row', marginTop: 16, alignItems: 'center' }}>
               <Animated.Image
                 style={{
-                  ...this.state.imageStyle,
+                  left: interpolate([0, finalImageX]),
+                  top: interpolate([0, 30]),
+                  width: interpolate([initialImageSize, finalImageSize]),
+                  height: interpolate([initialImageSize, finalImageSize]),
+                  borderRadius: interpolate([initialImageSize / 2, finalImageSize / 2]),
                   position: 'absolute',
                 }}
                 source={{ url: 'http://cvl-demos.cs.nott.ac.uk/vrn/queue/59b4192763dd4.jpg' }}

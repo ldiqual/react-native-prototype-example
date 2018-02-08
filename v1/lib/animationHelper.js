@@ -1,4 +1,4 @@
-import { Animated } from 'react-native'
+import { Animated, Easing } from 'react-native'
 
 const MIN_Y_OFFSET = 50
 const TAB_BAR_HEIGHT = 82
@@ -39,7 +39,7 @@ export default function(screen_height) {
 
 
    module.startAnimation = function (velocityY, positionY,initialPosition,id ){
-      // console.log('creating animation ')
+      
       var isGoingToUp = ( velocityY < 0 )? true : false
       var speed = Math.abs(velocityY)
       var currentPosition = Math.abs(positionY / screen_height)
@@ -48,13 +48,11 @@ export default function(screen_height) {
       var position = new Animated.Value(positionY)
       position.removeAllListeners()
 
-      // console.log('configuration : '+endPosition)
-
       Animated.timing(position, {
          toValue: endPosition,
          tension: 30,
          friction: 1,
-         //easing:Easing.elastic,
+         easing: Easing.elastic(1),
          velocity: velocityY
       }).start()
 

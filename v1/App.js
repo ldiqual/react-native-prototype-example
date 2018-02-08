@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Animated, StyleSheet, Text, View, NavigatorIOS, TouchableHighlight, ScrollView, Image } from 'react-native'
+import { Component, Animated, StyleSheet, Text, View, NavigatorIOS, TouchableHighlight, ScrollView, Image } from 'react-native'
 import Button from 'react-native-button'
 import { TabNavigator, TabBarBottom } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -43,9 +43,29 @@ class TabBar extends React.Component {
   }
 }
 
+const createEmptyScreen = (name, icon) => {
+  return class EmptyScreen extends View {
+    static navigationOptions = {
+      tabBarLabel: name,
+      tabBarIcon: ({ tintColor }) => (
+        <Image source={icon} style={{ tintColor: tintColor }} />
+      ),
+    }
+  }
+}
+
 const Tabs = TabNavigator({
   Active: {
     screen: ActiveScreen
+  },
+  Community: {
+    screen: createEmptyScreen('Community', require('./assets/icCommunityDarkGreenOff.png'))
+  },
+  Stream: {
+    screen: createEmptyScreen('Stream', require('./assets/icStreamDarkGreenOff.png'))
+  },
+  Account: {
+    screen: createEmptyScreen('Account', require('./assets/icAccountDarkGreenOff.png'))
   },
 }, {
   tabBarComponent: TabBar,

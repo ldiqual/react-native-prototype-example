@@ -3,7 +3,7 @@ import { Animated, Easing } from 'react-native'
 const MIN_Y_OFFSET = 50
 const TAB_BAR_HEIGHT = 82
 
-export default function(screen_height) {
+export default function(screenHeight) {
    var module = {}
    var initialUsedSpace
    var tension
@@ -13,21 +13,21 @@ export default function(screen_height) {
 
    module.calculateInitialPosition = function(initialUsedSpace) {
       initialUsedSpace = Math.abs(initialUsedSpace)
-      initialPosition = (screen_height - initialUsedSpace - TAB_BAR_HEIGHT)
+      initialPosition = (screenHeight - initialUsedSpace - TAB_BAR_HEIGHT)
       return initialPosition
    }
 
-   module.getInitialUsedSpace = function(){
+   module.getInitialUsedSpace = function() {
       return initialUsedSpace
    }
 
-   module.getInitialPosition = function(){
+   module.getInitialPosition = function() {
       return initialPosition
    }
 
 
-   module.setupAnimation = function ( higher_tension, friction, callbackPositionUpdated ){
-      this.tension = higher_tension
+   module.setupAnimation = function(higherTension, friction, callbackPositionUpdated) {
+      this.tension = higherTension
       this.friction = friction
       this.callbackPositionUpdated = callbackPositionUpdated
    }
@@ -40,7 +40,7 @@ export default function(screen_height) {
    module.startAnimation = function(velocityY, positionY, initialPosition, id) {
       
       var isGoingToUp = ( velocityY < 0 )? true : false
-      var currentPosition = Math.abs(positionY / screen_height)
+      var currentPosition = Math.abs(positionY / screenHeight)
       var endPosition = isGoingToUp ? MIN_Y_OFFSET : initialPosition
 
       var position = new Animated.Value(positionY)

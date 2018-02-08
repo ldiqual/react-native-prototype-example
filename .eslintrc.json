@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "@scoop/eslint-config-scoop",
+    "plugin:react/recommended"
+  ],
+  "parserOptions": {
+    "sourceType": "module"
+  }
+}

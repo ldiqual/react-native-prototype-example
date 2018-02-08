@@ -5,6 +5,7 @@ const TAB_BAR_HEIGHT = 82
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 import {
   AppRegistry,
   StyleSheet,
@@ -23,7 +24,9 @@ import Dimensions from '../lib/dimensions'
 import Colors from '../lib/colors'
 import Typography from '../lib/typography'
 
-var SCREEN_HEIGHT = ReactDimensions.get('window').height;
+const SCREEN_WIDTH = ReactDimensions.get('window').width
+const SCREEN_HEIGHT = ReactDimensions.get('window').height
+
 var DraggableDrawerHelper = (function(screen_height) {
    var module = {};
    var initialUsedSpace;
@@ -108,7 +111,29 @@ export default class Drawer extends Component {
       touched: 'FALSE',
       position: new Animated.Value(initialDrawerPosition),
       initialPosition: initialDrawerPosition
-    };
+    }
+    
+    this.initStyleValues()
+  }
+  
+  setStylePlainValues(params) {
+    const self = this
+    _.forEach(params, (style, key) => {
+      _.forEach(style, (styleValue, styleKey) => {
+        self.state[key][styleKey].setValue(styleValue)
+      })
+    })
+  }
+  
+  initStyleValues() {
+    const self = this
+    const plainValues = this.getStylePlainValues(0)
+    _.forEach(plainValues, (style, key) => {
+      _.forEach(style, (styleValue, styleKey) => {
+        self.state[key] = self.state[key] || {}
+        self.state[key][styleKey] = new Animated.Value(styleValue)
+      })
+    })
   }
 
   onUpdatePosition (position) {
@@ -133,6 +158,25 @@ export default class Drawer extends Component {
     this.props.onTabBarStyleNeedsChange({
       marginBottom: -TAB_BAR_HEIGHT * percent
     })
+    
+    const plainValues = this.getStylePlainValues(percent)
+    this.setStylePlainValues(plainValues)
+  }
+  
+  getStylePlainValues(percent) {
+    
+    const imageSize = 50 + 100 * percent
+    const finalImageX = (SCREEN_WIDTH - 2 * Dimensions.mediumMargin) / 2 - imageSize / 2
+    
+    return {
+      imageStyle: {
+        left: 0 + finalImageX * percent,
+        top: 0 + 30 * percent,
+        width: imageSize,
+        height: imageSize,
+        borderRadius: imageSize / 2,
+      }
+    }
   }
 
   componentWillMount () {
@@ -211,9 +255,13 @@ export default class Drawer extends Component {
             </View>
             
             <View style={{ flexDirection: 'row', marginTop: 16, alignItems: 'center' }}>
-              <Image
-                style={{ width: 50, height: 50, borderRadius: 25 }}
-                source={{ url: 'http://cvl-demos.cs.nott.ac.uk/vrn/queue/59b4192763dd4.jpg' }} />
+              <Animated.Image
+                style={{
+                  ...this.state.imageStyle,
+                  position: 'absolute',
+                }}
+                source={{ url: 'http://cvl-demos.cs.nott.ac.uk/vrn/queue/59b4192763dd4.jpg' }}
+              />
             
               <View style={{ flexDirection: 'column', marginLeft: Dimensions.mediumMargin }}>
                 <Text style={[ Typography.body, {color: Colors.white, textAlign: 'left' } ]}>

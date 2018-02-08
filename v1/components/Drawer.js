@@ -54,9 +54,7 @@ var DraggableDrawerHelper = (function(screen_height) {
       this.tension = higher_tension;
       this.friction = friction;
       this.callbackPositionUpdated = callbackPositionUpdated;
-
    };
-
 
    module.isAValidMovement = function(distanceX, distanceY){
       var moveTravelledFarEnough =  Math.abs(distanceY) > Math.abs(distanceX) && Math.abs(distanceY) > 2;

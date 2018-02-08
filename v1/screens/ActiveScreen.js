@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Animated, StyleSheet, Text, View, NavigatorIOS, TouchableHighlight, ScrollView, Image } from 'react-native'
+import { StatusBar, Animated, StyleSheet, Text, View, NavigatorIOS, TouchableHighlight, ScrollView, Image } from 'react-native'
 import Button from 'react-native-button'
 import { TabNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -51,10 +51,16 @@ export default class ActiveScreen extends React.Component {
     }.bind(this)
     
     this.state.drawerAnimationPercent.addListener(function(ev) {
-      const shouldBeVisible = ev.value > 0.01
-      if (shouldBeVisible != this.state.isDimmingViewVisible) {
-        this.setState({isDimmingViewVisible: shouldBeVisible})
+      
+      // Dimming view
+      const shouldDimmingViewBeVisible = ev.value > 0.01
+      if (shouldDimmingViewBeVisible != this.state.isDimmingViewVisible) {
+        this.setState({isDimmingViewVisible: shouldDimmingViewBeVisible})
       }
+      
+      // Status bar
+      const statusBarStyle = ev.value < 0.3 ? 'dark-content' : 'light-content'
+      StatusBar.setBarStyle(statusBarStyle, true)
     }.bind(this))
     
     return (

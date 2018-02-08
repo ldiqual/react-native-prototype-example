@@ -191,7 +191,7 @@ export default class Drawer extends Component {
     
     const interpolate = outputRange => {
       return percent.interpolate({
-        inputRange: [0, 1],
+        inputRange: outputRange.length == 3 ? [0, 0.5, 1] : [0, 1],
         outputRange: outputRange
       })
     }
@@ -235,8 +235,8 @@ export default class Drawer extends Component {
             <View style={{ flexDirection: 'row', marginTop: 16, alignItems: 'center' }}>
               <Animated.Image
                 style={{
-                  left: interpolate([0, finalImageX]),
-                  top: interpolate([0, 100]),
+                  left: interpolate([0, 10, finalImageX]),
+                  top: interpolate([0, 75, 100]),
                   width: interpolate([initialImageSize, finalImageSize]),
                   height: interpolate([initialImageSize, finalImageSize]),
                   borderRadius: interpolate([initialImageSize / 2, finalImageSize / 2]),
@@ -247,7 +247,11 @@ export default class Drawer extends Component {
             
               <Animated.View style={{
                 position: 'absolute',
-                left: interpolate([initialImageSize + Dimensions.mediumMargin, 0]),
+                left: interpolate([
+                  initialImageSize + Dimensions.mediumMargin,
+                  initialImageSize + Dimensions.mediumMargin,
+                  0
+                ]),
                 top: interpolate([5, 20])
               }}>
                 <Animated.Text style={[ Typography.body, {

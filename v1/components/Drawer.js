@@ -169,6 +169,9 @@ export default class Drawer extends Component {
     const finalImageX = (SCREEN_WIDTH - 2 * Dimensions.mediumMargin) / 2 - imageSize / 2
     
     return {
+      headerStyle: {
+        backgroundColor: percent,
+      },
       imageStyle: {
         left: 0 + finalImageX * percent,
         top: 0 + 30 * percent,
@@ -240,14 +243,17 @@ export default class Drawer extends Component {
           onPressIn={() => { this.setState({ touched: 'TRUE' }); }}
           onPressOut={() => { this.setState({ touched: 'FALSE' }); }}>
           
-          <View style={{
+          <Animated.View style={{
+            ...this.state.headerStyle,
+            backgroundColor: this.state.headerStyle.backgroundColor.interpolate({
+              inputRange: [0, 1],
+              outputRange: [Colors.green, Colors.white]
+            }),
             flexDirection: 'column',
-            backgroundColor: Colors.green,
             alignItems: 'stretch',
             height: 88,
             padding: Dimensions.mediumMargin,
             paddingTop: 0,
-            
           }}>
           
             <View style={{ alignItems: 'center' }}>
@@ -275,7 +281,7 @@ export default class Drawer extends Component {
             </View>
           
                      
-          </View>
+          </Animated.View>
 
         </TouchableWithoutFeedback>
         <View style={{ backgroundColor: Colors.white, height: SCREEN_HEIGHT }} />

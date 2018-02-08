@@ -27,7 +27,10 @@ export default class ActiveScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      backgroundStyle: {}
+      backgroundStyle: {},
+      dimmingViewStyle: {
+        opacity: 0
+      }
     }
   }
   
@@ -39,8 +42,12 @@ export default class ActiveScreen extends React.Component {
     
   }
   
+  onDimmingViewStyleNeedsChange(style) {
+    this.setState({ dimmingViewStyle: style })
+  }
+  
   render() {
-    console.log(this.state.backgroundStyle)
+    console.log(this.state.dimmingViewStyle)
     return (
       <View style={{
         flex: 1,
@@ -78,9 +85,18 @@ export default class ActiveScreen extends React.Component {
           </ScrollView>
           
         </Animated.View>
+        
+        <Animated.View style={[this.state.dimmingViewStyle, {
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'black'
+        }]} />
+        
         <Drawer
           onBackgroundStyleNeedsChange={ this.onBackgroundStyleNeedsChange.bind(this) }
           onTabBarStyleNeedsChange={ this.onTabBarStyleNeedsChange.bind(this) }
+          onDimmingViewStyleNeedsChange={ this.onDimmingViewStyleNeedsChange.bind(this) }
         />          
           
       </View>

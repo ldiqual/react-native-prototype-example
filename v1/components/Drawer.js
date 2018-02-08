@@ -93,6 +93,7 @@ export default class Drawer extends Component {
   static propTypes = {
     onBackgroundStyleNeedsChange: PropTypes.func.isRequired,
     onTabBarStyleNeedsChange: PropTypes.func.isRequired,
+    onDimmingViewStyleNeedsChange: PropTypes.func.isRequired,
   }
   
   constructor (props) {
@@ -122,6 +123,10 @@ export default class Drawer extends Component {
         { scaleX: 1 - (1 - maxScale) * percent },
         { scaleY: 1 - (1 - maxScale) * percent },
       ]
+    })
+    
+    this.props.onDimmingViewStyleNeedsChange({
+      opacity: 0.8 * percent
     })
   }
 

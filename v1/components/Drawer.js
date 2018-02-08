@@ -195,7 +195,7 @@ export default class Drawer extends Component {
         outputRange: outputRange
       })
     }
-
+    
     return (
       <Animated.View
         style={{
@@ -218,7 +218,7 @@ export default class Drawer extends Component {
             backgroundColor: interpolate([Colors.green, Colors.white]),
             flexDirection: 'column',
             alignItems: 'stretch',
-            height: 88,
+            height: interpolate([88, 300]),
             padding: Dimensions.mediumMargin,
             paddingTop: 0,
           }}>
@@ -236,7 +236,7 @@ export default class Drawer extends Component {
               <Animated.Image
                 style={{
                   left: interpolate([0, finalImageX]),
-                  top: interpolate([0, 30]),
+                  top: interpolate([0, 100]),
                   width: interpolate([initialImageSize, finalImageSize]),
                   height: interpolate([initialImageSize, finalImageSize]),
                   borderRadius: interpolate([initialImageSize / 2, finalImageSize / 2]),
@@ -245,15 +245,33 @@ export default class Drawer extends Component {
                 source={{ url: 'http://cvl-demos.cs.nott.ac.uk/vrn/queue/59b4192763dd4.jpg' }}
               />
             
-              <View style={{ flexDirection: 'column', marginLeft: Dimensions.mediumMargin }}>
-                <Text style={[ Typography.body, {color: Colors.white, textAlign: 'left' } ]}>
+              <Animated.View style={{
+                position: 'absolute',
+                left: interpolate([initialImageSize + Dimensions.mediumMargin, 0]),
+                top: interpolate([5, 20])
+              }}>
+                <Animated.Text style={[ Typography.body, {
+                  textAlign: 'left',
+                  fontSize: interpolate([
+                    StyleSheet.flatten(Typography.body).fontSize,
+                    StyleSheet.flatten(Typography.subhead).fontSize
+                  ]),
+                  color: interpolate([Colors.white, Colors.black]),
+                }]}>
                   Morning ride is
-                </Text>
+                </Animated.Text>
                 
-                <Text style={[ Typography.subhead, { color: Colors.white, textAlign: 'left' } ]}>
+                <Animated.Text style={[ Typography.subhead, {
+                  textAlign: 'left',
+                  fontSize: interpolate([
+                    StyleSheet.flatten(Typography.subhead).fontSize,
+                    StyleSheet.flatten(Typography.headline).fontSize
+                  ]),
+                  color: interpolate([Colors.white, Colors.green]),
+                }]}>
                   Confirmed for 8:00 am
-                </Text> 
-              </View>
+                </Animated.Text> 
+              </Animated.View>
             </View>
           
                      

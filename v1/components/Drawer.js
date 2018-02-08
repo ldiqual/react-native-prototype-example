@@ -218,7 +218,7 @@ export default class Drawer extends Component {
             backgroundColor: interpolate([Colors.green, Colors.white, Colors.white]),
             flexDirection: 'column',
             alignItems: 'stretch',
-            height: interpolate([88, 250, 300]),
+            height: interpolate([88, 250, 280]),
             padding: Dimensions.mediumMargin,
             paddingTop: 0,
           }}>
@@ -282,7 +282,17 @@ export default class Drawer extends Component {
           </Animated.View>
 
         </TouchableWithoutFeedback>
-        <View style={{ backgroundColor: Colors.white, height: SCREEN_HEIGHT }} />
+        <Animated.View style={{
+          flexDirection: 'column',
+          alignItems: 'center',
+          backgroundColor: Colors.white,
+          height: SCREEN_HEIGHT,
+          opacity: interpolate([0, 0, 1]),
+        }}>
+          <Text style={[ Typography.headline, { marginTop: Dimensions.largeMargin }]}>
+            Meet Robert
+          </Text>
+        </Animated.View>
       </Animated.View>
     );
   }

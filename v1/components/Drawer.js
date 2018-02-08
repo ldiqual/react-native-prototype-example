@@ -139,9 +139,12 @@ export default class Drawer extends Component {
             <View style={{ alignItems: 'center' }}>
               <Animated.View style={{
                 backgroundColor: interpolate([Colors.white, Colors.grey5]),
+                borderColor: interpolate([Colors.white, Colors.grey5]),
                 width: 20,
                 height: 1,
-                marginTop: 10
+                marginTop: 10,
+                borderRadius: 2,
+                borderWidth: 1,
               }}/>
             </View>
             

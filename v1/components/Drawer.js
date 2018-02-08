@@ -209,14 +209,24 @@ export default class Drawer extends Component {
             <View style={{ alignItems: 'center' }}>
               <View style={{ backgroundColor: Colors.white, width: 20, height: 1, marginTop: 10 }}/>
             </View>
-          
-            <Text style={[ Typography.body, { marginTop: 20, color: Colors.white, textAlign: 'left' } ]}>
-              Morning ride is
-            </Text>
             
-            <Text style={[ Typography.subhead, { color: Colors.white, textAlign: 'left' } ]}>
-              Confirmed for 8:00 am
-            </Text>          
+            <View style={{ flexDirection: 'row', marginTop: 16, alignItems: 'center' }}>
+              <Image
+                style={{ width: 50, height: 50, borderRadius: 25 }}
+                source={{ url: 'http://cvl-demos.cs.nott.ac.uk/vrn/queue/59b4192763dd4.jpg' }} />
+            
+              <View style={{ flexDirection: 'column', marginLeft: Dimensions.mediumMargin }}>
+                <Text style={[ Typography.body, {color: Colors.white, textAlign: 'left' } ]}>
+                  Morning ride is
+                </Text>
+                
+                <Text style={[ Typography.subhead, { color: Colors.white, textAlign: 'left' } ]}>
+                  Confirmed for 8:00 am
+                </Text> 
+              </View>
+            </View>
+          
+                     
           </View>
 
         </TouchableWithoutFeedback>

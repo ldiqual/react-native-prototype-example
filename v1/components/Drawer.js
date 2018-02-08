@@ -84,7 +84,6 @@ var DraggableDrawerHelper = (function(screen_height) {
          velocity: velocityY
       }).start();
 
-      // position.addListener((position)=>{console.log('position by',position,endPosition);});
       position.addListener(this.callbackPositionUpdated);
    };
 
@@ -94,9 +93,7 @@ var DraggableDrawerHelper = (function(screen_height) {
 export default class Drawer extends Component {
   
   static propTypes = {
-    onBackgroundStyleNeedsChange: PropTypes.func.isRequired,
-    onTabBarStyleNeedsChange: PropTypes.func.isRequired,
-    onDimmingViewStyleNeedsChange: PropTypes.func.isRequired,
+    percent: PropTypes.object.isRequired,
   }
   
   constructor (props) {
@@ -111,33 +108,14 @@ export default class Drawer extends Component {
       touched: 'FALSE',
       position: new Animated.Value(initialDrawerPosition),
       initialPosition: initialDrawerPosition,
-      percent: new Animated.Value(0),
+      percent: props.percent,
     }
   }
 
   onUpdatePosition (position) {
     this.state.position.setValue(position);
-    this._previousTop = position;
-    
     const percent = 1 - (position - MIN_Y_OFFSET) / (this.state.initialPosition - MIN_Y_OFFSET)
     this.state.percent.setValue(percent)
-    const maxScale = 0.9
-    
-    this.props.onBackgroundStyleNeedsChange({
-      transform: [
-        { scaleX: 1 - (1 - maxScale) * percent },
-        { scaleY: 1 - (1 - maxScale) * percent },
-      ]
-    })
-    
-    this.props.onDimmingViewStyleNeedsChange({
-      display: percent < 0.01 ? 'none' : 'flex',
-      opacity: 0.6 * percent,
-    })
-    
-    this.props.onTabBarStyleNeedsChange({
-      marginBottom: -TAB_BAR_HEIGHT * percent
-    })
   }
 
   componentWillMount () {
@@ -294,6 +272,6 @@ export default class Drawer extends Component {
           </Text>
         </Animated.View>
       </Animated.View>
-    );
+    )
   }
-};
+}

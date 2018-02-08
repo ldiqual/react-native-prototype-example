@@ -17,6 +17,10 @@ import Dimensions from '../lib/dimensions'
 
 export default class ActiveScreen extends React.Component {
   
+  static propTypes = {
+    drawerAnimationPercent: PropTypes.object,
+  }
+  
   static navigationOptions = {
     tabBarLabel: 'Trips',
     tabBarIcon: ({ tintColor }) => (
@@ -31,37 +35,46 @@ export default class ActiveScreen extends React.Component {
       dimmingViewStyle: {
         opacity: 0,
         display: 'none',
-      }
+      },
+      isDimmingViewVisible: false,
+      drawerAnimationPercent: props.screenProps.drawerAnimationPercent || new Animated.Value(0)
     }
   }
   
-  onBackgroundStyleNeedsChange(style) {
-    this.setState({ backgroundStyle: style })
-  }
-  
-  onTabBarStyleNeedsChange(style) {
-    this.props.navigation.setParams({ tabBarStyle: style })
-  }
-  
-  onDimmingViewStyleNeedsChange(style) {
-    this.setState({ dimmingViewStyle: style })
-  }
-  
   render() {
+    
+    const interpolate = function(outputRange) {
+      return this.state.drawerAnimationPercent.interpolate({
+        inputRange: outputRange.length == 3 ? [0, 0.5, 1] : [0, 1],
+        outputRange: outputRange
+      })
+    }.bind(this)
+    
+    this.state.drawerAnimationPercent.addListener(function(ev) {
+      const shouldBeVisible = ev.value > 0.01
+      if (shouldBeVisible != this.state.isDimmingViewVisible) {
+        this.setState({isDimmingViewVisible: shouldBeVisible})
+      }
+    }.bind(this))
+    
     return (
       <View ref={ comp => this._test = comp } style={{
         flex: 1,
         flexDirection: 'column',
         backgroundColor: 'black',
       }}>
-        <Animated.View style={[this.state.backgroundStyle, {
+        <Animated.View style={{
+          transform: [
+            { scaleX: interpolate([1, 0.9]) },
+            { scaleY: interpolate([1, 0.9]) },
+          ],
           flex: 1,
           backgroundColor: Colors.grey1,
           alignItems: 'stretch',
           justifyContent: 'center',
           borderTopLeftRadius: 8,
           borderTopRightRadius: 8,
-        }]}>
+        }}>
         
           <ScrollView style={{ paddingTop: 50 }}>
             
@@ -86,17 +99,17 @@ export default class ActiveScreen extends React.Component {
           
         </Animated.View>
         
-        <Animated.View style={[this.state.dimmingViewStyle, {
+        <Animated.View style={{
+          display: this.state.isDimmingViewVisible ? 'flex' : 'none',
+          opacity: interpolate([0, 0.6]),
           position: 'absolute',
           width: '100%',
           height: '100%',
           backgroundColor: 'black'
-        }]} />
+        }} />
         
         <Drawer
-          onBackgroundStyleNeedsChange={ this.onBackgroundStyleNeedsChange.bind(this) }
-          onTabBarStyleNeedsChange={ this.onTabBarStyleNeedsChange.bind(this) }
-          onDimmingViewStyleNeedsChange={ this.onDimmingViewStyleNeedsChange.bind(this) }
+          percent={ this.state.drawerAnimationPercent }
         />
           
       </View>

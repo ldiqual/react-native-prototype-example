@@ -8,6 +8,8 @@ import ActiveScreen from './screens/ActiveScreen'
 import { Font } from 'expo'
 import Colors from './lib/colors'
 
+const drawerAnimationPercent = new Animated.Value(0)
+
 class TabBar extends React.Component {
   constructor(props) {
     super(props);
@@ -24,8 +26,17 @@ class TabBar extends React.Component {
   }
 
   render() {
+    const interpolate = outputRange => {
+      return drawerAnimationPercent.interpolate({
+        inputRange: outputRange.length == 3 ? [0, 0.5, 1] : [0, 1],
+        outputRange: outputRange
+      })
+    }
+    
     return (
-      <Animated.View style={ this.state.style }>
+      <Animated.View style={{
+        marginBottom: interpolate([0, -82])
+      }}>
         <TabBarBottom {...this.props} />
       </Animated.View>
     )
@@ -64,7 +75,7 @@ export default class App extends React.Component {
   
   render() {
     return (
-      this.state.isFontLoaded ? <Tabs /> : <View />
+      this.state.isFontLoaded ? <Tabs screenProps={{ drawerAnimationPercent: drawerAnimationPercent }} /> : <View />
     )
   }
 }

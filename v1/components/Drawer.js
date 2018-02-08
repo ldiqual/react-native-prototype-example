@@ -43,7 +43,7 @@ export default class Drawer extends Component {
         
     // console.log(initialDrawerSize, 'Initila size')
     this.state = {
-      touched: 'FALSE',
+      touched: false,
       position: new Animated.Value(initialDrawerPosition),
       initialPosition: initialDrawerPosition,
       percent: props.percent,
@@ -67,7 +67,7 @@ export default class Drawer extends Component {
 
     this._panGesture = PanResponder.create({
       onMoveShouldSetPanResponder: (evt, gestureState) => {
-        return DraggableDrawerHelper.isAValidMovement(gestureState.dx, gestureState.dy) && this.state.touched == 'TRUE'
+        return DraggableDrawerHelper.isAValidMovement(gestureState.dx, gestureState.dy) && this.state.touched == true
       },
       onPanResponderMove: (evt, gestureState) => {
         this.moveDrawerView(gestureState)
@@ -80,19 +80,13 @@ export default class Drawer extends Component {
 
 
   moveDrawerView (gestureState) {
-    // console.log(gestureState.vy, 'GESTURE')
     if (!this.center) return
     var currentValue = Math.abs(gestureState.moveY / SCREEN_HEIGHT)
-    var isGoingToUp = (gestureState.vy < 0)
-    //Here, I'm subtracting %5 of screen size from edge drawer position to be closer as possible to finger location when dragging the drawer view
     var position = gestureState.moveY - SCREEN_HEIGHT * 0.05
-    //Send to callback function the current drawer position when drag down the drawer view component
-    //   if(!isGoingToUp) this.props.onDragDown(1-currentValue)
     this.onUpdatePosition(position)
   }
 
   moveFinished (gestureState) {
-    var isGoingToUp = (gestureState.vy < 0)
     if (!this.center) return
     DraggableDrawerHelper.startAnimation(gestureState.vy, gestureState.moveY, this.state.initialPosition, gestureState.stateId)
   }
@@ -127,8 +121,8 @@ export default class Drawer extends Component {
         ref={(center) => this.center = center}
         {...this._panGesture.panHandlers}>
         <TouchableWithoutFeedback
-          onPressIn={() => { this.setState({ touched: 'TRUE' }) }}
-          onPressOut={() => { this.setState({ touched: 'FALSE' }) }}>
+          onPressIn={() => { this.setState({ touched: true }) }}
+          onPressOut={() => { this.setState({ touched: false }) }}>
           
           <Animated.View style={{
             backgroundColor: interpolate([Colors.green, Colors.white, Colors.white]),

@@ -32,13 +32,12 @@ export default function(screen_height) {
       this.callbackPositionUpdated = callbackPositionUpdated
    }
 
-   module.isAValidMovement = function(distanceX, distanceY){
+   module.isAValidMovement = function(distanceX, distanceY) {
       var moveTravelledFarEnough =  Math.abs(distanceY) > Math.abs(distanceX) && Math.abs(distanceY) > 2
       return moveTravelledFarEnough
    }
 
-
-   module.startAnimation = function (velocityY, positionY,initialPosition,id ){
+   module.startAnimation = function(velocityY, positionY, initialPosition, id) {
       
       var isGoingToUp = ( velocityY < 0 )? true : false
       var speed = Math.abs(velocityY)

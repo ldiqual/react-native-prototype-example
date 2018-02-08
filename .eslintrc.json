@@ -1,7 +1,7 @@
 {
   "extends": [
-    "@scoop/eslint-config-scoop",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "@scoop/eslint-config-scoop"
   ],
   "parserOptions": {
     "sourceType": "module"

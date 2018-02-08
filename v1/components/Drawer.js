@@ -215,10 +215,10 @@ export default class Drawer extends Component {
           onPressOut={() => { this.setState({ touched: 'FALSE' }); }}>
           
           <Animated.View style={{
-            backgroundColor: interpolate([Colors.green, Colors.white]),
+            backgroundColor: interpolate([Colors.green, Colors.white, Colors.white]),
             flexDirection: 'column',
             alignItems: 'stretch',
-            height: interpolate([88, 300]),
+            height: interpolate([88, 250, 300]),
             padding: Dimensions.mediumMargin,
             paddingTop: 0,
           }}>

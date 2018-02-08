@@ -1,18 +1,43 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyleSheet, Text, View, NavigatorIOS, TouchableHighlight, ScrollView, Image } from 'react-native'
+import { Animated, StyleSheet, Text, View, NavigatorIOS, TouchableHighlight, ScrollView, Image } from 'react-native'
 import Button from 'react-native-button'
-import { TabNavigator } from 'react-navigation'
+import { TabNavigator, TabBarBottom } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import ActiveScreen from './screens/ActiveScreen'
 import { Font } from 'expo'
 import Colors from './lib/colors'
+
+class TabBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      style: {},
+    }
+  }
+
+  componentWillReceiveProps(props) {
+    const state = this.props.navigation.state
+    const params = state.routes[state.index].params || {}
+    const style = params.tabBarStyle || {}
+    this.setState({ style: style })
+  }
+
+  render() {
+    return (
+      <Animated.View style={ this.state.style }>
+        <TabBarBottom {...this.props} />
+      </Animated.View>
+    )
+  }
+}
 
 const Tabs = TabNavigator({
   Active: {
     screen: ActiveScreen
   },
 }, {
+  tabBarComponent: TabBar,
   tabBarOptions: {
     activeTintColor: Colors.green,
     inactiveTintColor: Colors.grey4,

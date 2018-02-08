@@ -129,6 +129,10 @@ export default class Drawer extends Component {
       display: percent < 1 ? 'none' : 'flex',
       opacity: 0.6 * percent
     })
+    
+    this.props.onTabBarStyleNeedsChange({
+      marginBottom: -TAB_BAR_HEIGHT * percent
+    })
   }
 
   componentWillMount () {

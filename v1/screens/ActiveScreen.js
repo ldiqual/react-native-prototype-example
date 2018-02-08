@@ -40,7 +40,7 @@ export default class ActiveScreen extends React.Component {
   }
   
   onTabBarStyleNeedsChange(style) {
-    this.props.onTabBarStyleNeedsChange(style)
+    this.props.navigation.setParams({ tabBarStyle: style })
   }
   
   onDimmingViewStyleNeedsChange(style) {

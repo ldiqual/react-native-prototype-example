@@ -47,6 +47,7 @@ export default class Drawer extends Component {
       position: new Animated.Value(initialDrawerPosition),
       initialPosition: initialDrawerPosition,
       percent: props.percent,
+      isClosed: true,
     }
   }
 
@@ -54,6 +55,7 @@ export default class Drawer extends Component {
     this.state.position.setValue(position)
     const percent = 1 - (position - MIN_Y_OFFSET) / (this.state.initialPosition - MIN_Y_OFFSET)
     this.state.percent.setValue(percent)
+    this.setState({ isClosed: percent < 0.01 })
   }
 
   componentWillMount () {
@@ -77,7 +79,6 @@ export default class Drawer extends Component {
       },
     })
   }
-
 
   moveDrawerView (gestureState) {
     if (!this.center) return
@@ -122,7 +123,9 @@ export default class Drawer extends Component {
         {...this._panGesture.panHandlers}>
         <TouchableWithoutFeedback
           onPressIn={() => { this.setState({ touched: true }) }}
-          onPressOut={() => { this.setState({ touched: false }) }}>
+          onPressOut={() => { this.setState({ touched: false }) }}
+          onPress={() => this.state.isClosed && DraggableDrawerHelper.open(this.state.initialPosition, 2)}
+        >
           
           <Animated.View style={{
             backgroundColor: interpolate([Colors.green, Colors.white, Colors.white]),

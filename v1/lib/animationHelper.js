@@ -40,7 +40,6 @@ export default function(screen_height) {
    module.startAnimation = function(velocityY, positionY, initialPosition, id) {
       
       var isGoingToUp = ( velocityY < 0 )? true : false
-      var speed = Math.abs(velocityY)
       var currentPosition = Math.abs(positionY / screen_height)
       var endPosition = isGoingToUp ? MIN_Y_OFFSET : initialPosition
 
@@ -53,6 +52,20 @@ export default function(screen_height) {
          friction: 1,
          easing: Easing.elastic(1),
          velocity: velocityY
+      }).start()
+
+      position.addListener(this.callbackPositionUpdated)
+   }
+   
+   module.open = function(initialPosition, id) {
+
+      const position = new Animated.Value(initialPosition)
+      Animated.timing(position, {
+         toValue: MIN_Y_OFFSET,
+         tension: 30,
+         friction: 1,
+         easing: Easing.elastic(1),
+         velocity: 5
       }).start()
 
       position.addListener(this.callbackPositionUpdated)

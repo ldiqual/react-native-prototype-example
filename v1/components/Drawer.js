@@ -1,7 +1,10 @@
 var TENSION = 800;
 var FRICTION = 90;
+const MIN_Y_OFFSET = 50
+const TAB_BAR_HEIGHT = 82
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import {
   AppRegistry,
   StyleSheet,
@@ -14,7 +17,7 @@ import {
   PanResponder,
   Dimensions as ReactDimensions,
   TouchableOpacity
-} from 'react-native';
+} from 'react-native'
 
 import Dimensions from '../lib/dimensions'
 import Colors from '../lib/colors'
@@ -31,7 +34,7 @@ var DraggableDrawerHelper = (function(screen_height) {
 
    module.calculateInitialPosition = function(initialUsedSpace) {
       initialUsedSpace = Math.abs(initialUsedSpace);
-      initialPosition = (screen_height - initialUsedSpace - 82);
+      initialPosition = (screen_height - initialUsedSpace - TAB_BAR_HEIGHT);
       return initialPosition;
    };
 
@@ -63,7 +66,7 @@ var DraggableDrawerHelper = (function(screen_height) {
       var isGoingToUp = ( velocityY < 0 )? true : false;
       var speed = Math.abs(velocityY);
       var currentPosition = Math.abs(positionY / screen_height);
-      var endPosition = isGoingToUp? 50 : initialPosition;
+      var endPosition = isGoingToUp ? MIN_Y_OFFSET : initialPosition;
 
       var position = new Animated.Value(positionY);
       position.removeAllListeners();
@@ -86,6 +89,12 @@ var DraggableDrawerHelper = (function(screen_height) {
 })(SCREEN_HEIGHT)
 
 export default class Drawer extends Component {
+  
+  static propTypes = {
+    onBackgroundStyleNeedsChange: PropTypes.func.isRequired,
+    onTabBarStyleNeedsChange: PropTypes.func.isRequired,
+  }
+  
   constructor (props) {
     super(props)
     // naming it initialX clearly indicates that the only purpose
@@ -104,13 +113,16 @@ export default class Drawer extends Component {
   onUpdatePosition (position) {
     this.state.position.setValue(position);
     this._previousTop = position;
-    // console.log('Position ', position);
-    var initialPosition = DraggableDrawerHelper.getInitialPosition();
-
-
-    if (initialPosition === position) {
-      this.props.onInitialPositionReached && this.props.onInitialPositionReached();
-    }
+    
+    const percent = 1 - (position - MIN_Y_OFFSET) / (this.state.initialPosition - MIN_Y_OFFSET)
+    const maxScale = 0.9
+    
+    this.props.onBackgroundStyleNeedsChange({
+      transform: [
+        { scaleX: 1 - (1 - maxScale) * percent },
+        { scaleY: 1 - (1 - maxScale) * percent },
+      ]
+    })
   }
 
   componentWillMount () {
@@ -152,7 +164,6 @@ export default class Drawer extends Component {
     var isGoingToUp = (gestureState.vy < 0);
     if (!this.center) return;
     DraggableDrawerHelper.startAnimation(gestureState.vy, gestureState.moveY, this.state.initialPosition, gestureState.stateId);
-    this.props.onRelease && this.props.onRelease(isGoingToUp);
   }
 
   render() {
@@ -165,6 +176,9 @@ export default class Drawer extends Component {
           flex: 1,
           position: 'absolute',
           width: '100%',
+          borderTopLeftRadius: 8,
+          borderTopRightRadius: 8,
+          overflow: 'hidden',
         }}
         ref={(center) => this.center = center}
         {...this._panGesture.panHandlers}>
@@ -179,8 +193,7 @@ export default class Drawer extends Component {
             height: 88,
             padding: Dimensions.mediumMargin,
             paddingTop: 0,
-            borderTopLeftRadius: 4,
-		        borderTopRightRadius: 4,
+            
           }}>
           
             <View style={{ alignItems: 'center' }}>

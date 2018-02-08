@@ -126,7 +126,8 @@ export default class Drawer extends Component {
     })
     
     this.props.onDimmingViewStyleNeedsChange({
-      opacity: 0.8 * percent
+      display: percent < 1 ? 'none' : 'flex',
+      opacity: 0.6 * percent
     })
   }
 

@@ -29,7 +29,8 @@ export default class ActiveScreen extends React.Component {
     this.state = {
       backgroundStyle: {},
       dimmingViewStyle: {
-        opacity: 0
+        opacity: 0,
+        display: 'none',
       }
     }
   }
@@ -39,7 +40,7 @@ export default class ActiveScreen extends React.Component {
   }
   
   onTabBarStyleNeedsChange(style) {
-    
+    this.props.onTabBarStyleNeedsChange(style)
   }
   
   onDimmingViewStyleNeedsChange(style) {
@@ -47,9 +48,8 @@ export default class ActiveScreen extends React.Component {
   }
   
   render() {
-    console.log(this.state.dimmingViewStyle)
     return (
-      <View style={{
+      <View ref={ comp => this._test = comp } style={{
         flex: 1,
         flexDirection: 'column',
         backgroundColor: 'black',
@@ -97,7 +97,7 @@ export default class ActiveScreen extends React.Component {
           onBackgroundStyleNeedsChange={ this.onBackgroundStyleNeedsChange.bind(this) }
           onTabBarStyleNeedsChange={ this.onTabBarStyleNeedsChange.bind(this) }
           onDimmingViewStyleNeedsChange={ this.onDimmingViewStyleNeedsChange.bind(this) }
-        />          
+        />
           
       </View>
         
